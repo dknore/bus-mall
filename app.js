@@ -63,8 +63,11 @@ function allPicks() {
   while(img1Pick === img2Pick || img1Pick === img3Pick || Image.imagesSelected.includes(img1Pick)) {
     img1Pick = randomImages();
   }
-  while(img2Pick === img3Pick === Image.imagesSelected.includes(img2Pick) === Image.imagesSelected.includes(img3Pick)) {
+  while(img2Pick === img3Pick || Image.imagesSelected.includes(img2Pick)) {
     img2Pick = randomImages();
+  }
+  while(Image.imagesSelected.includes(img3Pick)) {
+    img3Pick = randomImages();
   }
 
   var imgEl1 = document.getElementById('photo1');
