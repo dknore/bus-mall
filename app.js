@@ -8,6 +8,8 @@ Image.imagesSelected = [];
 function Image(name, filepath) {
   this.name = name;
   this.filepath = filepath;
+  this.numTimesShown = 0;
+  this.numTimesClicked = 0;
   Image.allImages.push(this);
 }
 
@@ -51,7 +53,6 @@ function allPicks() {
   var img1Pick = randomImages();
   var img2Pick = randomImages();
   var img3Pick = randomImages();
-  var numClicks = 0;
 
   //Push into imagesSelected array
   Image.imagesSelected.push(img1Pick);
@@ -65,20 +66,14 @@ function allPicks() {
   while(img2Pick === img3Pick === Image.imagesSelected.includes(img2Pick) === Image.imagesSelected.includes(img3Pick)) {
     img2Pick = randomImages();
   }
-  while(numClicks < 25) {
-    numClicks++;
-  }
 
   var imgEl1 = document.getElementById('photo1');
   imgEl1.src = Image.allImages[img1Pick].filepath;
-  // this.Image.timesSelected++;
 
   var imgEl2 = document.getElementById('photo2');
   imgEl2.src = Image.allImages[img2Pick].filepath;
-  // this.Image.timesSelected++;
 
   var imgEl3 = document.getElementById('photo3');
   imgEl3.src = Image.allImages[img3Pick].filepath;
-  // this.Image.timesSelected++;
 }
 allPicks();
