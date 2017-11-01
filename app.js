@@ -2,7 +2,10 @@
 
 //Array to store images
 Image.allImages = [];
-Image.imagesSelected = [];
+// Image.container = document.getElementsByID('images');
+Image.justViewed = [];
+Image.results = document.getElementById('results');
+Image.TotalClicks = 0;
 
 //Object for images
 function Image(name, filepath) {
@@ -35,41 +38,45 @@ new Image('Dragon Tail USB', 'images/usb.gif');
 new Image('Water Can', 'images/water-can.jpg');
 new Image('Wine Glass', 'images/wine-glass.jpg');
 
-//Add event listener when images is clicked
+//Add event listener when images is clicked AND
 var event1 = document.getElementById('photo1');
 event1.addEventListener('click', allPicks);
+event1.addEventListener('click', handleClick);
 var event2 = document.getElementById('photo2');
 event2.addEventListener('click', allPicks);
+event2.addEventListener('click', handleClick);
 var event3 = document.getElementById('photo3');
 event3.addEventListener('click', allPicks);
+event3.addEventListener('click',handleClick);
 
-//Random image selector
+//Random function
 function randomImages() {
   return Math.floor(Math.random() * Image.allImages.length);
 }
 
-//call random fx for images
+//call random function for images
 function allPicks() {
   var img1Pick = randomImages();
   var img2Pick = randomImages();
   var img3Pick = randomImages();
 
-  //Push into imagesSelected array
-  Image.imagesSelected.push(img1Pick);
-  Image.imagesSelected.push(img2Pick);
-  Image.imagesSelected.push(img3Pick);
+  //Push into justViewed array
+  Image.justViewed.push(img1Pick);
+  Image.justViewed.push(img2Pick);
+  Image.justViewed.push(img3Pick);
 
-  //Make sure all images are different AND that image has not already been used
-  while(img1Pick === img2Pick || img1Pick === img3Pick || Image.imagesSelected.includes(img1Pick)) {
+  //Make sure all images are truly random (different AND hasn't already been used
+  while(img1Pick === img2Pick || img1Pick === img3Pick || Image.justViewed.includes(img1Pick)) {
     img1Pick = randomImages();
   }
-  while(img2Pick === img3Pick || Image.imagesSelected.includes(img2Pick)) {
+  while(img2Pick === img3Pick || Image.justViewed.includes(img2Pick)) {
     img2Pick = randomImages();
   }
-  while(Image.imagesSelected.includes(img3Pick)) {
+  while(Image.justViewed.includes(img3Pick)) {
     img3Pick = randomImages();
   }
 
+  //manipulate the DOM
   var imgEl1 = document.getElementById('photo1');
   imgEl1.src = Image.allImages[img1Pick].filepath;
 
@@ -80,3 +87,29 @@ function allPicks() {
   imgEl3.src = Image.allImages[img3Pick].filepath;
 }
 allPicks();
+
+function handleClick() {
+  console.log('Clicks =', Image.totalClicks);
+  if(Image.totalClicks > 24) {
+    Image.container.removeEventListener('click', handleClick);
+    createResults();
+  } else
+    Image.totalClicks++;
+
+  for(var i = 0; i < Image.name.length; i++) {
+    if(event.target.id === Image.allImages[i].name) {
+      Image.allImages[i].numTimesClicked++;
+      Image.allImages[i].numTimesShown++;
+      console.log(event.target.id + ' has ' + Image.allImages[i].numTimesClicked + ' votes in ' + Image.allImages[i].numTimesShown + ' views');
+    }
+  }
+}
+
+function createResults() {
+  for(var i = 0; i < Image.allImages.length; i++) {
+    var liEl = document.createElement('li');
+    liEl.textContent = Image.allImages[i].name + ' has:  ' + Image.allImages[i].numTimesClicked + ' votes in ' + Image.allImages[i].numTimesShown + ' views';
+    Image.results.appendChild(liEl);
+  }
+}
+createResults();

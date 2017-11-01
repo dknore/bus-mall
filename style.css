@@ -30,5 +30,16 @@ img {
   display: inline;
 }
 
+#results {
+  columns: 4;
+  padding-left: 120px;
+  padding-right: 120px;
+  padding-top: 40px;
+}
+
+li {
+  list-style-type: none;
+  margin-right: 5px;
+}
 /*images/trafalgar-square-2543172_1920.jpg*/
 /*transport-2262256_1920.jpg*/
