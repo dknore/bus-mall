@@ -19,7 +19,7 @@ h1 {
 }
 
 #images {
-  margin-left: 270px;
+  margin-left: 290px;
   margin-top: 50px;
 }
 
@@ -41,5 +41,17 @@ li {
   list-style-type: none;
   margin-right: 5px;
 }
-/*images/trafalgar-square-2543172_1920.jpg*/
-/*transport-2262256_1920.jpg*/
+
+#chart {
+  margin-top: 100px;
+}
+
+button {
+  margin-left: 595px;
+  margin-bottom: 100px;
+  height: 40px;
+  width: 150px;
+  background-color: #f74f3c;
+  font-size: 24px;
+  color: #4e4d4d;
+}
