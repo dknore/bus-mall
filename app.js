@@ -101,7 +101,6 @@ function handleClick(event) {
     createChart();
   }
   Image.totalClicks += 1;
-  console.log('EVENT', event);
 
   if(event.target.id === 'photo1') {
     Image.allImages[img1Pick].numTimesClicked += 1;
@@ -130,11 +129,22 @@ function createResults() {
 function createChart() {
   var data = [];
   var names = [];
+  var newData = [];
   var ctx = document.getElementById('chart').getContext('2d');
 
   for(var i = 0; i < Image.allImages.length; i++) {
     data.push(Image.allImages[i].numTimesClicked);
     names.push(Image.allImages[i].name);
+  }
+  if(localStorage.clicks) {
+    var retrieve = localStorage.getItem('clicks');
+    retrieve = JSON.parse(retrieve);
+    for(var j = 0; j < Image.allImages.length; j++) {
+      newData.push(retrieve[i] + data[i]);
+    }
+  } else {
+    var clicks = JSON.stringify(data);
+    localStorage.setItem('clicks', clicks);
   }
 
   var myChart = new Chart(ctx, {
